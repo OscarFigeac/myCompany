@@ -39,10 +39,11 @@ public class SupplierCollection {
      */
     public void add(String fileName) throws IOException {
         String[] data;
-        BufferedWriter invalid = new BufferedWriter(new FileWriter("invalidSupplier.txt", true));//block of code write to a different file
-        try { //basically an if and else structure
-            Scanner input =new Scanner(new File(fileName));
-            while (input.hasNextLine()){
+        //block of code write to a different file
+        try (BufferedWriter invalid = new BufferedWriter(new FileWriter("invalidSupplier.txt", true))) { //basically an if and else structure
+            //^Writes errors to invalidSupplier.txt
+            Scanner input = new Scanner(new File(fileName));
+            while (input.hasNextLine()) {
                 String in = input.nextLine();
                 data = in.split(","); //split by comma working as a delimiter
                 String supplierName = data[0];
@@ -52,18 +53,30 @@ public class SupplierCollection {
                 Supplier sup = new Supplier(supplierName, supplierAddress, amountOwed, creditLimit);
                 suppliers.add(sup);
             }
-        } catch (FileNotFoundException fileNotFoundException){
+        } catch (FileNotFoundException fileNotFoundException) {
             throw new FileNotFoundException("Provided file doesn't exist. Provided name was " +
                     fileName + ". Please try a different name");
-        } catch (NumberFormatException numberFormatException){
+        } catch (NumberFormatException numberFormatException) {
             System.out.println("Couldn't parse numeric values");
-        } finally {
-            invalid.close(); //closes and writes errors to the file
         }
     }
 
+    /**
+     * Sorts the List by supplier name and outputs the sorted List of Suppliers.
+     */
     public void displayAll(){
         suppliers.sort(Comparator.comparing(Supplier:: getSupplierName)); //sorting using the compare method
+        //gets the supplier name and compares it to the other ones
+        for (Supplier supplier : suppliers) { //for each supplier in suppliers
+            System.out.println(supplier); //output a supplier
+        }
+    }
+
+    /**
+     * Sorts the List by amountOwed in descending order and outputs the sorted List of Suppliers.
+     */
+    public void displayCreditors(){
+        suppliers.sort(Comparator.comparing(Supplier:: getAmountOwed).reversed()); //sorting using the compare method
         //gets the supplier name and compares it to the other ones
         for (Supplier supplier : suppliers) { //for each supplier in suppliers
             System.out.println(supplier); //output a supplier
