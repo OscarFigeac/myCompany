@@ -1,4 +1,0 @@
-writing to a file:
-ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("whatever.txt"));
-        os.writeObject(sups);
-        os.close();
