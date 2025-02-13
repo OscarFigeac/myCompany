@@ -83,4 +83,17 @@ public class SupplierCollection {
         }
     }
 
+    /**
+     * Takes in the name of a binary file in which the data from the List of suppliers will be
+     * written to.
+     * @param fileName the name of the file
+     * @throws IOException If any input/output errors occur.
+     */
+    public void cstoreSupplied(String fileName) throws IOException {
+        ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(fileName)); //fileoutput
+        //stream used to pass the name as a parameter; otherwise it can't be passed.
+        o.writeObject(suppliers);
+        o.close();
+    }
+
 }
