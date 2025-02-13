@@ -9,6 +9,12 @@ public class SupplierCollection {
     public SupplierCollection(){
     }
 
+    static class customException extends Exception{ //subclass to Exception
+        public customException(String exception){
+            super(exception);
+        }
+    }
+
     /**
      * Takes in file input which will be used to populate an arrayList of supplier objects. Closes
      * itself after being used.
@@ -18,7 +24,7 @@ public class SupplierCollection {
      */
     public SupplierCollection(FileInputStream toBeWritten) throws IOException, ClassNotFoundException {
         try (ObjectInputStream file = new ObjectInputStream(toBeWritten)){
-        suppliers = (List<Supplier>)file.readObject();
+        suppliers = (List<Supplier>)file.readObject(); //why is it yellow???
         }
     }
 
@@ -96,4 +102,16 @@ public class SupplierCollection {
         o.close();
     }
 
+    /**
+     * Takes in a String to make it a custom exception for the user. Defined user exception.
+     * @param exception the message to be outputted.
+     */
+    public void throwCustom(String exception){
+        try{
+            throw new customException(exception);
+        }catch (customException cE){
+            System.out.println("Caught the exception");
+            System.out.println(cE.getMessage());
+        }
+    }
 }
