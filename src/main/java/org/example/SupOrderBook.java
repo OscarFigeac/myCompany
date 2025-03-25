@@ -24,6 +24,12 @@ public class SupOrderBook {
         this.orders.addAll(orders);
     }
 
+    /**
+     * Takes in an orderId, looks for it and if found, calculates the final price of the order
+     * @param orderId the ID being looked for
+     * @return the final cost of the order
+     * @throws NoSuchElementException if the ID wasn't found
+     */
     public double calcOrderCost(String orderId){
         SupOrder supOrder = new SupOrder();
         String retrievedId = supOrder.getUniqueId();
