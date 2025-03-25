@@ -2,6 +2,8 @@ package org.example;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Stock {
     private ArrayList<Item> products = new ArrayList<>();
@@ -94,6 +96,26 @@ public class Stock {
             }
         }
         return orders;
+    }
+
+    /**
+     * Sorts the List of products and displays the names in alphabetical order.
+     */
+    public void displayByName(){
+        products.sort(Comparator.comparing(Item::getItemName));
+        for (Item item : products){
+            System.out.println(item.getItemName());
+        }
+    }
+
+    /**
+     * Sorts the List of products and displays the quantity in stock in decreasing order
+     */
+    public void displayByQty(){
+        products.sort(Comparator.comparing(Item::getQuantityInStock));
+        for (Item item : products){
+            System.out.println(item.getQuantityInStock());
+        }
     }
 
 }
