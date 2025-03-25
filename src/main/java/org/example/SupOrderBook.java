@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class SupOrderBook {
     private ArrayList <SupOrder> orders = new ArrayList<>();
@@ -21,5 +22,16 @@ public class SupOrderBook {
      */
     public void add(ArrayList<SupOrder> orders){
         this.orders.addAll(orders);
+    }
+
+    public double calcOrderCost(String orderId){
+        SupOrder supOrder = new SupOrder();
+        String retrievedId = supOrder.getUniqueId();
+        if (retrievedId.equals(orderId)){
+            DisSup sup = new DisSup();
+            return sup.calculateDiscountedPrice(sup.getAmountOwed());
+        }else{
+            throw new NoSuchElementException("No existing elements with the id: " + orderId);
+        }
     }
 }
