@@ -42,4 +42,19 @@ public class DisSup extends Supplier{
     public void setDiscountPercentage(double discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
+
+    /**
+     * Takes in the order value and calculates the discount (if applicable)
+     * @param orderValue The value of the purchase
+     * @return the discounted price, orderValue otherwise
+     */
+    public double calculateDiscountedPrice(double orderValue){
+        if (orderValue >= orderValueForDiscount){
+            double discount = (discountPercentage / 100) * orderValue;
+            double finalPrice = orderValue - discount;
+            return finalPrice;
+        }else {
+            return orderValue;
+        }
+    }
 }
