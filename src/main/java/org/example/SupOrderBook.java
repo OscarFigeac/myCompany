@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SupOrderBook {
     private ArrayList <SupOrder> orders = new ArrayList<>();
@@ -38,6 +37,27 @@ public class SupOrderBook {
             return sup.calculateDiscountedPrice(sup.getAmountOwed());
         }else{
             throw new NoSuchElementException("No existing elements with the id: " + orderId);
+        }
+    }
+
+    /**
+     * Takes in a List of suppliers to map them and output the name and list of products
+     * @param suppliers the List to be mapped
+     * @return a mapped version of the List
+     * @throws IllegalFormatCodePointException if the List is null
+     */
+    public Map<String, List<String>> createSupplierMap(List<Supplier> suppliers){
+        if (suppliers == null){
+            throw new IllegalArgumentException("Passed parameter cannot be null");
+        } else{
+            Map<String, List<String>> supplierMap = new HashMap<>();
+            Stock stock = new Stock();
+            List<String> products = new ArrayList<>();
+            products.stream().map(object -> Objects.toString(stock, null)).toList(); //stock into stream
+            for (Supplier supplier : suppliers) {
+                supplierMap.put(supplier.getSupplierName(), products);
+            }
+            return supplierMap;
         }
     }
 }
